@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- add bootstrap css and js links here-->
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <nav>
+        <!--Navbar-->
+        <div>
+            <a href="/login">Login</a>
+            <a href="/sign_up">Sign Up</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </nav>
+    <div>
+        <!--Content-->
+        {% block content %}
+        {% endblock %}
+    </div>
+    <!--Load any scripts at the end-->
+    <script type="text/javascript" src="{{ url_for('static', filename = 'index.js') }}">
+    </script>
+</body>
+
+</html>
