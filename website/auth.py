@@ -19,6 +19,18 @@ def sign_up():
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
 
+        if len(email) < 4:
+            flash("Email is too short!", category='error')
+        elif len(firstName) < 2 or len(lastName) < 2:
+            flash("The first or last name is invalid!", category='error')
+        elif password1 != password2:
+            flash("Passwords do not match!", category='error')
+        elif len(password1) < 4:
+            flash("Password should be longer than 4 characters!")
+        #can later make symbols, numbers and caps required
+        else:
+            flash("Account created!", category='success')
+         
     return render_template('sign_up.html')
 
 @auth.route('/logout')

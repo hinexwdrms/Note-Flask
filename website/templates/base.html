@@ -18,11 +18,36 @@
             <a href="/logout">Logout</a>
         </div>
     </nav>
+
+    <!--Flashed messages-->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error'%}
+    <div class="error">
+        {{message}}
+        <button type="button" class="close">
+            <span>&times;</span>
+        </button>
+    </div>
+    {% else %}
+    <div class="success">
+        {{message}}
+        <button type="button" class="close">
+            <span>&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <!--Content-->
     <div>
-        <!--Content-->
         {% block content %}
         {% endblock %}
     </div>
+
     <!--Load any scripts at the end-->
     <script type="text/javascript" src="{{ url_for('static', filename = 'index.js') }}">
     </script>
