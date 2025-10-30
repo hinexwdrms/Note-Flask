@@ -1,4 +1,4 @@
-from website import create_app
+from website import create_app #absolute import from the package (__init__)
 
 app = create_app()
 
