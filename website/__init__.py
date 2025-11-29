@@ -25,6 +25,7 @@ def create_app():
 
     return app
 
+#create database if none
 def create_database(app):
     if not path.exists('website/' + DB_NAME):
         with app.app_context():

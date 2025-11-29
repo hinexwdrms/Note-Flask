@@ -14,5 +14,6 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique = True)
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
+    last_name = db.Column(db.String(150))
     notes = db.relationship('Note') #one user with many note (user --> parent object, note --> child object)
     #keeps record of the note.id everytime user creates note
