@@ -24,7 +24,7 @@ def login():
         else:
             flash("User not found!",category='error')
 
-    return render_template('login.html')
+    return render_template('login.html', user = current_user)
 
 @auth.route('/sign_up', methods =['GET','POST'])
 def sign_up():
@@ -58,7 +58,7 @@ def sign_up():
 
             return redirect(url_for('views.home')) #home of the views.py --> same as '/'
          
-    return render_template('sign_up.html')
+    return render_template('sign_up.html', user = current_user)
 
 @auth.route('/logout')
 @login_required #cannot logout without logging in
