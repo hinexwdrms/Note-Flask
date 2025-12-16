@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
 from . import db
 from .models import Note
@@ -9,6 +9,10 @@ views = Blueprint('views', __name__)
 @views.route('/', methods = ['GET','POST'])
 @login_required #cannot get to the homepage unless you log in
 def home():
+    # Check for delete success message from query parameter
+    if request.args.get('deleted') == 'true':
+        flash('Note deleted successfully!', category='success')
+    
     if request.method == "POST":
         note = request.form.get('note')
 
@@ -22,7 +26,7 @@ def home():
 
     return render_template('home.html', user= current_user) #paases current user
 
-@views.route('/delete-note', methods=['GET','POST'])
+@views.route('/delete-note', methods=['POST'])
 def delete_note():  
     note = json.loads(request.data) # this function expects a JSON from the INDEX.js file 
     noteId = note['noteId']
@@ -31,5 +35,6 @@ def delete_note():
         if note.user_id == current_user.id:
             db.session.delete(note)
             db.session.commit()
-
-    return jsonify({'success': True}) #cannot skip (just the way it is)
+            return jsonify({'success': True})
+    
+    return jsonify({'success': False})

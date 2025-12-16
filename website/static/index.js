@@ -5,7 +5,14 @@ function deleteNote(noteId) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({ noteId: noteId }),
-    }).then((_res) => {
-        window.location.href = "/";
-    });
+    }).then((res) => res.json())
+        .then((data) => {
+            if (data.success) {
+                // Redirect with success parameter
+                window.location.href = "/?deleted=true";
+            } else {
+                // Redirect without parameter on failure
+                window.location.href = "/";
+            }
+        });
 }
